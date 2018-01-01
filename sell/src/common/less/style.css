@@ -1,0 +1,15 @@
+html {
+  font-size: 62.5%!important;
+  color: white;
+}
+.clearfix {
+  display: inline-block;
+}
+.clearfix.after {
+  content: '.';
+  display: block;
+  height: 0;
+  line-height: 0;
+  clear: both;
+  visibility: hidden;
+}
