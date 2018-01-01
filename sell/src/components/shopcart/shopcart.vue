@@ -12,7 +12,7 @@
       <div class="desc">另需配送费￥{{seller.data.deliveryPrice}}元</div>
     </div>
     <div class="content-right">
-      <div class="pay">￥{{seller.data.minPrice}}起送</div>
+      <div class="pay" :class="payClass">{{payDesc}}</div>
     </div>
   </div>
 </div>
@@ -33,21 +33,38 @@ export default{
       }
     }
   },
-  computed: {
+  computed: { 
     totalPrice () {
       let total = 0;
       this.selectFoods.forEach((food) => {
         total += food.price * food.count;
       });
       return total;
+    },
+    totalCount () {
+      let count = 0;
+      this.selectFoods.forEach((food) => {
+        count += food.count;
+      });
+      return count;
+    },
+    payDesc () {
+      if (this.totalPrice === 0) {
+        return `￥${this.minPrice}元起送`;
+      } else if (this.totalPrice < this.minPrice) {
+        let diff = this.minPrice - this.totalPrice;
+        return `还差￥${diff}元起送`;
+      } else {
+        return '去结算';
+      }
+    },
+    payClass () {
+      if (this.totalPrice < this.minPrice) {
+        return 'not-enough';
+      } else {
+        return 'enough';
+      }
     }
-  },
-  totalCount () {
-    let count = 0;
-    this.selectFoods.forEach((food) => {
-      count += food.count;
-    });
-    return count;
   }
 };
 </script>
@@ -143,9 +160,16 @@ export default{
         line-height: 4.8rem;
         color: rgba(255, 255, 255, 0.4);
         padding:0 0.8rem;
-        background: #2B333B;
+        /*background: #2B333B;*/
         box-sizing: border-box;
         text-align: center;
+        &.not-enough{
+          background:#2B333B;
+        }
+        &.enough{
+          background:#00b43c;
+          color:#fff;
+        }
       }
     }
   }

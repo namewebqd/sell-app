@@ -5,10 +5,7 @@
             <img :src="seller.data.avatar" alt="">
           </div>
           <div class="content">
-            <div class="title">
-              <div class="brand"></div>
-              <div class="name">{{seller.data.name}}</div>
-            </div>
+            <div class="title"></div>
             <div class="description">
               {{seller.data.description}}/{{seller.data.deliverTime}}分钟送达
             </div>
